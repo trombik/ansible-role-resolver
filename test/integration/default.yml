@@ -1,0 +1,9 @@
+- hosts: localhost
+  roles:
+    - ansible-role-resolver
+  vars:
+    resolver_dhclient_enabled: true
+    resolver_nameservers:
+      - 192.168.1.1
+      - 192.168.1.2
+      - 192.168.1.3
