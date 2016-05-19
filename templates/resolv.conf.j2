@@ -1,4 +1,4 @@
-{% nameservers = resolver_nameservers | predictable_shuffle(ansible_fqdn) %}
+{% set nameservers = resolver_nameservers | predictable_shuffle(ansible_fqdn) %}
 {% for n in nameservers %}
 nameserver {{ n }}
 {% endfor %}
