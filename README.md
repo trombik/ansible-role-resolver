@@ -14,7 +14,7 @@ Role Variables
 | Variable | Description | Default |
 |----------|-------------|---------|
 | resolver\_nameservers | a list of resolvers | [] |
-| resolver\_dhclient\_enabled | update resolvconf.conf instead of resolv.conf | false |
+| resolver\_dhclient\_enabled | update resolvconf.conf instead of resolv.conf (FreeBSD only) | false |
 
 
 Dependencies

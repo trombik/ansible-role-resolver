@@ -1,15 +1,3 @@
 ---
-# tasks file for ansible-role-resolver
 
-- name: Create resolv.conf
-  template:
-    src: resolv.conf.j2
-    dest: /etc/resolv.conf
-  when: "{{ not resolver_dhclient_enabled }}"
-
-- name: Create resolvconf.conf
-  template:
-    src: resolvconf.conf.j2
-    dest: /etc/resolvconf.conf
-  when: "{{ resolver_dhclient_enabled }}"
-  notify: Update resolv.conf
+- include: "configure-{{ ansible_os_family }}.yml"
