@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'serverspec'
 
 describe file('/etc/resolv.conf') do
   case host_inventory['fqdn']
