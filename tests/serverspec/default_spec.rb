@@ -5,19 +5,6 @@ when 'freebsd'
   describe file('/etc/resolvconf.conf') do
     its(:content) { should match /name_servers="192\.168\.1\.2 192\.168\.1\.3 192\.168\.1\.1"/ }
   end
-
-  describe file('/etc/dhclient.conf') do
-    its(:content) { should match /^supersede\s+domain-name-servers\s+#{ Regexp.escape('192.168.1.2,192.168.1.3,192.168.1.1') };/ }
-  end
-when 'centos'
-  describe file() do
-    its(:content) { should match /PEERDNS=no/ }
-    its(:content) { should_not match /PEERDNS=yes/ }
-  end
-when 'ubuntu'
-  describe file('/etc/dhcp/dhclient.conf') do
-    its(:content) { should match /^supersede domain-name-servers 192\.168\.1\.3,192\.168\.1\.2,192\.168\.1\.1;/ }
-  end
 end
 
 describe file('/etc/resolv.conf') do

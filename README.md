@@ -2,10 +2,9 @@
 
 Configures `/etc/resolv.conf`.
 
-## Notes
-
-This role modifies `/etc/dhclient.conf`. If you manage `/etc/dhclient.conf`
-with `ansible`, the role might break your configuration.
+If DHCP client is running on the host, this role should not be used. Use
+[ansible-role-dhclient](https://github.com/reallyenglish/ansible-role-dhclient)
+instead.
 
 # Requirements
 
@@ -16,8 +15,6 @@ None
 | Variable | Description | Default |
 |----------|-------------|---------|
 | resolver\_nameservers | a list of resolvers | [] |
-| resolver\_dhclient\_enabled | whether dhclient is enabled | false |
-| resolver\_dhclient\_interface | the interface dhclient is enabled (CentOS and FreeBSD only) | "" |
 
 # Dependencies
 
@@ -30,12 +27,10 @@ None
   roles:
     - ansible-role-resolver
   vars:
-    resolver_dhclient_enabled: true
     resolver_nameservers:
       - 192.168.1.1
       - 192.168.1.2
       - 192.168.1.3
-    resolver_dhclient_interface: "{% if ansible_os_family == 'RedHat' %}eth0{% elif ansible_os_family == 'FreeBSD' %}em0{% endif %}"
 ```
 
 # License

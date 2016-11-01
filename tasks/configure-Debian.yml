@@ -1,26 +1,5 @@
 ---
 
-- name: Append supersede domain-name-servers to /etc/dhcp/dhclient.conf
-  lineinfile:
-    dest: /etc/dhcp/dhclient.conf
-    regexp: "^supersede\\s+domain-name-servers\\s+(?!{{ resolver_nameservers | predictable_shuffle(ansible_fqdn) | join(',') }});"
-    state: absent
-  when: "{{ resolver_dhclient_enabled }}"
-
-- name: Append supersede domain-name-servers to /etc/dhcp/dhclient.conf
-  lineinfile:
-    dest: /etc/dhcp/dhclient.conf
-    line: "supersede domain-name-servers {{ resolver_nameservers | predictable_shuffle(ansible_fqdn) | join(',') }};"
-  register: register_dhclient_conf
-  when: "{{ resolver_dhclient_enabled }}"
-
-- name: Restart network
-  service:
-    name: networking
-    state: restarted
-  when: register_dhclient_conf.changed
-
-
 - name: Create resolv.conf
   template:
     src: resolv.conf.j2
