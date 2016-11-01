@@ -11,7 +11,8 @@ None
 | Variable | Description | Default |
 |----------|-------------|---------|
 | resolver\_nameservers | a list of resolvers | [] |
-| resolver\_dhclient\_enabled | update resolvconf.conf instead of resolv.conf (FreeBSD only) | false |
+| resolver\_dhclient\_enabled | whether dhclient is enabled | false |
+| resolver\_dhclient\_interface | the interface dhclient is enabled (CentOS only) | "" |
 
 # Dependencies
 
