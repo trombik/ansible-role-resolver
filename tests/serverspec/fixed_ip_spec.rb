@@ -8,6 +8,8 @@ describe file('/etc/resolv.conf') do
     its(:content) { should match /nameserver 192\.168\.1\.1\nnameserver 192\.168\.1\.2\nnameserver 192\.168\.1\.3/ }
   when 'fixed-ip-centos-72-x86-64'
     its(:content) { should match /nameserver 192\.168\.1\.3\nnameserver 192\.168\.1\.2\nnameserver 192\.168\.1\.1/ }
+  when 'fixed-ip-ubuntu-1404-amd64'
+    its(:content) { should match /nameserver 192\.168\.1\.2\nnameserver 192\.168\.1\.1\nnameserver 192\.168\.1\.3/ }
   else
     its(:content) { should match /nameserver 192\.168\.1\.2\nnameserver 192\.168\.1\.3\nnameserver 192\.168\.1\.1/ }
   end
