@@ -6,6 +6,15 @@ If DHCP client is running on the host, this role should not be used. Use
 [ansible-role-dhclient](https://github.com/reallyenglish/ansible-role-dhclient)
 instead.
 
+## predictable_shuffle filter
+
+`predictable_shuffle` shuffles a list, generates predictably shuffled list
+given strings.
+
+```
+{{ list_of_ip_address | predictable_shuffle(ansible_fqdn) | list }}
+```
+
 # Requirements
 
 None
@@ -27,10 +36,11 @@ None
   roles:
     - ansible-role-resolver
   vars:
-    resolver_nameservers:
+    nameservers:
       - 192.168.1.1
       - 192.168.1.2
       - 192.168.1.3
+    resolver_nameservers: "{{ nameservers | predictable_shuffle(ansible_fqdn) | list }}"
 ```
 
 # License
