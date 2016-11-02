@@ -1,18 +1,5 @@
 ---
 
-- name: Remove ^DNS\d+ from ifcfg-*
-  lineinfile:
-    dest: "/etc/sysconfig/network-scripts/ifcfg-{{ resolver_dhclient_interface }}"
-    regexp: '^PEERDNS=yes'
-    state: absent
-  when: "{{ resolver_dhclient_enabled }}"
-
-- name: Add PEERDNS\=no to ifcfg-{{ resolver_dhclient_interface }}
-  lineinfile:
-    dest: "/etc/sysconfig/network-scripts/ifcfg-{{ resolver_dhclient_interface }}"
-    line: "PEERDNS=no"
-  when: "{{ resolver_dhclient_enabled }}"
-
 - name: Create resolv.conf
   template:
     src: resolv.conf.j2

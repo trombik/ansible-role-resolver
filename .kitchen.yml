@@ -61,10 +61,3 @@ suites:
     verifier:
       name: shell
       command: rspec -c -f d -I tests/serverspec tests/serverspec/default_spec.rb
-  - name: fixed_ip
-    provisioner:
-      name: ansible_playbook
-      playbook: tests/serverspec/fixed_ip.yml
-    verifier:
-      name: shell
-      command: rspec -c -f d -I tests/serverspec tests/serverspec/fixed_ip_spec.rb
