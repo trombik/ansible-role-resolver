@@ -1,3 +1,10 @@
+# Release 2.0.1
+
+* 07ffde0 [bugfix] use ansible_hostname instead of ansible_fqdn (#1)
+* 1ab234f [bugfix] QA (#13)
+* 02263f8 QA (#12)
+* 4b26f8f QA (#11)
+
 # Release 2.0.0
 
 * `resolver_dhclient_enabled` has been removed. If DHCP client is running on
