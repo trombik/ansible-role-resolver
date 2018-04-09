@@ -1,24 +1,4 @@
 - hosts: localhost
-  pre_tasks:
-    # XXX kill dhclient to ensure resolv.conf is never modified by it
-    - shell: dhclient -x
-      changed_when: false
-      ignore_errors: true # so that "kitchen converge && kitchen converge" works
-      when:
-        - ansible_os_family == 'RedHat' or ansible_os_family == 'Debian'
-    - shell: pkill dhclient
-      when:
-        - ansible_os_family == 'OpenBSD'
-      changed_when: false
-      ignore_errors: true
-    - service:
-        name: dhclient
-        state: stopped
-      changed_when: false
-      ignore_errors: true
-      when:
-        - ansible_os_family == 'FreeBSD'
-
   roles:
     - ansible-role-resolver
   vars:
