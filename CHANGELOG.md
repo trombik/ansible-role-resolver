@@ -1,3 +1,7 @@
+## Release 2.1.0
+
+* 3d6e8a7 [feature] Support OpenBSD 6.3, FreeBSD 10.4, and Ubuntu 18.04 (#5)
+
 ## Release 2.0.2
 
 * ba4809f [bugfix] remove pre_tasks in a test (#3)
