@@ -11,7 +11,7 @@ when "freebsd"
     end
   end
 end
-
+puts host_inventory["fqdn"]
 describe file("/etc/resolv.conf") do
   its(:content) { should_not match(/nameserver\s+#{ Regexp.escape('10.0.2.3') }/) }
   case host_inventory["fqdn"]
@@ -23,9 +23,9 @@ describe file("/etc/resolv.conf") do
     its(:content) { should match(/nameserver 192\.168\.1\.3\nnameserver 192\.168\.1\.2\nnameserver 192\.168\.1\.1/) }
   when "default-centos-73-x86-64"
     its(:content) { should match(/nameserver 192\.168\.1\.3\nnameserver 192\.168\.1\.1\nnameserver 192\.168\.1\.2/) }
-  when "default-freebsd-111-amd64"
+  when "default-freebsd-111-amd64", "default-ubuntu-1804-amd64"
     its(:content) { should match(/nameserver 192\.168\.1\.1\nnameserver 192\.168\.1\.3\nnameserver 192\.168\.1\.2/) }
-  when "default-ubuntu-1604-amd64"
+  when "default-ubuntu-1604-amd64", "default-openbsd-63-amd64", "default-freebsd-104-amd64"
     its(:content) { should match(/nameserver 192\.168\.1\.1\nnameserver 192\.168\.1\.2\nnameserver 192\.168\.1\.3/) }
   else
     its(:content) { should match(/nameserver 192\.168\.1\.2\nnameserver 192\.168\.1\.3\nnameserver 192\.168\.1\.1/) }
