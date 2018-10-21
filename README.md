@@ -24,6 +24,7 @@ None
 | Variable | Description | Default |
 |----------|-------------|---------|
 | `resolver_nameservers` | list of resolvers | `[]` |
+| `resolver_config` | content of `resolv.conf(5)` | `""` |
 
 # Dependencies
 
@@ -33,26 +34,6 @@ None
 
 ```yaml
 - hosts: localhost
-  pre_tasks:
-    # XXX kill dhclient to ensure resolv.conf is never modified by it
-    - shell: dhclient -x
-      changed_when: false
-      ignore_errors: true # so that "kitchen converge && kitchen converge" works
-      when:
-        - ansible_os_family == 'RedHat' or ansible_os_family == 'Debian'
-    - shell: pkill dhclient
-      when:
-        - ansible_os_family == 'OpenBSD'
-      changed_when: false
-      ignore_errors: true
-    - service:
-        name: dhclient
-        state: stopped
-      changed_when: false
-      ignore_errors: true
-      when:
-        - ansible_os_family == 'FreeBSD'
-
   roles:
     - ansible-role-resolver
   vars:
@@ -67,6 +48,11 @@ None
     # returns different value before and after the first play. use
     # ansible_hostname here to pass idempotency_test
     resolver_nameservers: "{{ nameservers | predictable_shuffle(ansible_hostname) | list }}"
+    config_map:
+      OpenBSD: |
+        domain i.trombik.org
+        lookup file bind
+    resolver_config: "{{ config_map[ansible_os_family] | default('') }}"
 ```
 
 # License

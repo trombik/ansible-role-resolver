@@ -13,6 +13,7 @@ when "freebsd"
 end
 puts host_inventory["fqdn"]
 describe file("/etc/resolv.conf") do
+  its(:content) { should match(/# Managed by ansible$/) }
   its(:content) { should_not match(/nameserver\s+#{ Regexp.escape('10.0.2.3') }/) }
   case host_inventory["fqdn"]
   when "default-freebsd-103-amd64"
@@ -29,6 +30,14 @@ describe file("/etc/resolv.conf") do
     its(:content) { should match(/nameserver 192\.168\.1\.1\nnameserver 192\.168\.1\.2\nnameserver 192\.168\.1\.3/) }
   else
     its(:content) { should match(/nameserver 192\.168\.1\.2\nnameserver 192\.168\.1\.3\nnameserver 192\.168\.1\.1/) }
+  end
+
+  case os[:family]
+  when "openbsd"
+    its(:content) { should match(/^domain i\.trombik\.org$/) }
+    its(:content) { should match(/^lookup file bind$/) }
+  else
+    its(:content) { should match(/^# beginning of resolver_config\n\n# end of resolver_config$/) }
   end
 end
 # 2 1 3
